@@ -5,6 +5,7 @@
   the subtree (branch) whose hash equals the received hash, the root cell of
   this branch should be returned. Return empty cell if the branch is not found.
 -}
+;;#include "imports/autoload.fc";
 #include "autoload.fc";
 
 () recv_internal() {
@@ -19,7 +20,7 @@
     (s, cell c) = s.load_ref();
     (int i, c) = has_hash(hash, c);
     if (i) {
-      if (c) {
+      if (~ c.cell_null?()) {
         return (1, c);
       } else {
         return (1, tree);
@@ -32,7 +33,7 @@
 ;; testable
 (cell) find_branch_by_hash(int hash, cell tree) method_id {
   (_, cell c) = has_hash(hash, tree);
-  if (c) {
+  if (~ c.cell_null?()) {
     return c;
   }
   return begin_cell().end_cell();
