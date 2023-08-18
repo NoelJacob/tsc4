@@ -5,8 +5,7 @@
   the subtree (branch) whose hash equals the received hash, the root cell of
   this branch should be returned. Return empty cell if the branch is not found.
 -}
-#include "imports/autoload.fc";
-;;#include "autoload.fc";
+#include "autoload.fc";
 
 () recv_internal() {
 }

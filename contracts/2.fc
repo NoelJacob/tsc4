@@ -8,7 +8,7 @@
   Matrix can be rectangular where matrixA must to be of size n*m & matrixB of size m*p.
   After calculating the result matrix, the function should return final result (as tuple).
 -}
-#include "imports/autoload.fc";
+#include "autoload.fc";
 
 () recv_internal() {
 }
