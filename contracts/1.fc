@@ -5,11 +5,35 @@
   the subtree (branch) whose hash equals the received hash, the root cell of
   this branch should be returned. Return empty cell if the branch is not found.
 -}
+#include "../node_modules/@ston-fi/funcbox/autoload.fc";
 
 () recv_internal() {
 }
 
+(int, cell) has_hash(int hash, cell tree) inline_ref {
+  if (tree.cell_hash() == hash) {
+    return (1, null());
+  }
+  slice s = tree.begin_parse();
+  repeat(s.slice_depth()) {
+    (s, cell c) = s.load_ref();
+    (int i, c) = has_hash(hash, c);
+    if (i) {
+      if (c) {
+        return (1, c);
+      } else {
+        return (1, tree);
+      }
+    }
+  }
+  return (0, null());
+}
+
 ;; testable
 (cell) find_branch_by_hash(int hash, cell tree) method_id {
+  (_, cell c) = has_hash(hash, tree);
+  if (c) {
+    return c;
+  }
   return begin_cell().end_cell();
 }
