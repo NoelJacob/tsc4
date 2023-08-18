@@ -20,7 +20,7 @@
     (s, cell c) = s.load_ref();
     (int i, c) = has_hash(hash, c);
     if (i) {
-      if (~ c.cell_null?()) {
+      ifnot (c.cell_null?()) {
         return (1, c);
       } else {
         return (1, tree);
@@ -33,7 +33,7 @@
 ;; testable
 (cell) find_branch_by_hash(int hash, cell tree) method_id {
   (_, cell c) = has_hash(hash, tree);
-  if (~ c.cell_null?()) {
+  ifnot (c.cell_null?()) {
     return c;
   }
   return begin_cell().end_cell();
