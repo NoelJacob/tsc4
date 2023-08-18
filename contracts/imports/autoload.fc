@@ -1,0 +1,15 @@
+#include "./stdlib.fc";
+#include "./consts.fc";
+#include "./globs.fc";
+#include "./op.fc";
+#include "./reserves.fc";
+#include "./stdlib_ext.fc";
+#include "./msgs.fc";
+#include "./dict.fc";
+#include "./utils.fc";
+#include "./contracts.fc";
+#include "./ctx.fc";
+#include "./address.fc";
+#include "./cell.fc";
+#include "./dump.fc";
+#include "./math.fc";

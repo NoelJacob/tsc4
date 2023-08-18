@@ -1,0 +1,49 @@
+{-
+    stdlib_ext.fc
+
+    Additional functions that are not present in stdlib.fc
+-}
+
+(int) mod (int x, int y) asm "MOD";
+(int) divc (int x, int y) asm "DIVC";
+slice preload_bits_offset(slice s, int offset, int len) asm "SDSUBSTR";
+int builder_null?(builder b) asm "ISNULL";
+(slice, slice) load_slice_ref(slice s) asm "LDREFRTOS";
+forall X -> int to_int(X x) asm "NOP";
+(slice, int) load_bool(slice b) inline asm "1 LDU SWAP 1 EQINT";
+(builder) store_bool(builder b, int v) inline asm " 0 NEQINT ABS SWAP 1 STU";
+slice addr_none() asm "<b b{00} s, b> <s PUSHSLICE";
+cell empty_cell() asm "<b b> PUSHREF";
+slice empty_slice() asm "<b b> <s PUSHSLICE";
+forall X -> tuple tset(tuple t, int k, X x) asm(t x k) "SETINDEXVAR";
+forall X -> (tuple, ()) ~tset(tuple t, int k, X x) asm(t x k) "SETINDEXVAR";
+forall X -> (tuple, X) tpop(tuple t) asm "TPOP";
+forall X -> (int) is_tuple(X t) asm "ISTUPLE";
+int tlen(tuple t) asm "TLEN";
+int tlenq(tuple t) asm "QTLEN";
+slice preload_slice_offset(slice s, int offset, int len) asm "SDSUBSTR";
+(slice, slice) load_slice(slice s, int len) asm( -> 1 0) "LDSLICEX";
+forall X -> tuple _unsafe_tuple(X x) asm "NOP";
+(slice) as_slice(builder b) asm "ENDC CTOS";
+(slice, int) load_time(slice s) asm "64 LDU SWAP";
+(builder) store_time(builder b, int t) inline asm(t b) "64 STU";
+(slice, int) load_uint8(slice s) asm "8 LDU SWAP";
+(builder) store_uint8(builder b, int t) inline asm(t b) "8 STU";
+(slice, int) load_uint16(slice s) asm "16 LDU SWAP";
+(builder) store_uint16(builder b, int t) inline asm(t b) "16 STU";
+(slice, int) load_uint32(slice s) asm "32 LDU SWAP";
+(builder) store_uint32(builder b, int t) inline asm(t b) "32 STU";
+(slice, int) load_uint64(slice s) asm "64 LDU SWAP";
+(builder) store_uint64(builder b, int t) inline asm(t b) "64 STU";
+(slice, int) load_uint128(slice s) asm "128 LDU SWAP";
+(builder) store_uint128(builder b, int t) inline asm(t b) "128 STU";
+(slice, int) load_uint256(slice s) asm "256 LDU SWAP";
+(builder) store_uint256(builder b, int t) inline asm(t b) "256 STU";
+(int) equal_cells(cell a, cell b) asm "HASHCU SWAP HASHCU EQUAL"; 
+(slice, int) load_opcode(slice s) asm "32 LDU SWAP";
+(builder) store_opcode(builder b, int t) inline asm(t b) "32 STU";
+(slice, int) load_query_id(slice s) asm "64 LDU SWAP";
+(builder) store_query_id(builder b, int t) inline asm(t b) "64 STU";
+forall X -> X ~strdump_safe_not_pretty(slice value) impure asm "STRDUMP";
+forall X -> X ~dump_safe(X value) impure asm "s0 DUMP";
+(builder) begin_message(int _opcode) asm "ctx GETGLOB 4 INDEX SWAP NEWC 32 STU 64 STU";
